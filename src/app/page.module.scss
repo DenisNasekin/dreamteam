@@ -1,0 +1,31 @@
+.page {
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .title {
+    max-width: 50%;
+    text-align: center;
+    line-height: 40px;
+    padding: 20px;
+    margin-bottom: 40px;
+  }
+
+  &>a {
+    font-size: 24px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #333;
+
+    &:hover {
+      color: rgb(216, 27, 216);
+      text-decoration: underline;
+      text-underline-offset: 6px;
+    }
+  }
+}
