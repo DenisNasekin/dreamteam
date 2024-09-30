@@ -45,7 +45,7 @@ export default function RegisterForm() {
   
   return (
     <div className={styles.formContainer}>
-      <h1 className={styles.title}>Заполни свои данные, чтобы пойти дальше</h1>
+      <h1 className={styles.title}>Заполни свои данные</h1>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <input type="text" placeholder='Имя' {...register('name')} />
           {errors.name?.message && <span className={styles.error}>{errors.name.message}</span>}
