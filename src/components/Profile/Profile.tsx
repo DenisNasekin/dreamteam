@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IRecord, IRecordsState, addRecord, updateRecord } from '../../store/slices/records';
 
 export default function Profile () {
-  const userData = sessionStorage.getItem('user');
+  const [userData, setUserData] = useState<string | null>(null);
   const records = useSelector((state: {records: IRecordsState}) => state.records.records);
   const dispatch = useDispatch();
   const [newRecord, setNewRecord] = useState<IRecord>({ id: '', title: '', description: '' });
@@ -15,30 +15,29 @@ export default function Profile () {
   const [newRecordId, setNewRecordId] = useState('');
   const [editingRecord, setEditingRecord] = useState<IRecord | null>(null);
 
-
-  const createNewRecord = () => {
-    setNewRecordId(Date.now().toString());
-    setCreateRecord(true);
-  };
-
-  if (userData === null) {
-    return <div className={styles.error}>Пользователь не авторизован</div>;
-  }
-  const user = JSON.parse(userData);
+  useEffect(() => {
+    const data = sessionStorage.getItem('user');
+    setUserData(data);
+  }, []);
 
   useEffect(() => {
     if (createRecord) {
       dispatch(addRecord({ id: newRecordId, title: newRecord.title, description: newRecord.description }));
       setCreateRecord(false);
     }
-    } , [dispatch, newRecordId, createRecord]
-  );
+    },[dispatch, newRecordId, createRecord]);
 
+  if (!userData) {
+    return <div className={styles.error}>Пользователь не авторизован</div>;
+  }
+  const createNewRecord = () => {
+    setNewRecordId(Date.now().toString());
+    setCreateRecord(true);
+  };
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setNewRecord({ ...newRecord, [name]: value });
   }
-
   const handleEditRecord = (record: IRecord) => {
     setEditingRecord(record);
   };
@@ -51,8 +50,8 @@ export default function Profile () {
     <section className={styles.section}>
       <div className={styles.container}>
         <h2>Профиль:</h2>
-        <p className={styles.text}>Твое имя: {user.name}</p>
-        <p className={styles.text}>Твоя почта: {user.email}</p>
+        <p className={styles.text}>Твое имя: {JSON.parse(userData).name}</p>
+        <p className={styles.text}>Твоя почта: {JSON.parse(userData).email}</p>
 
         <Logout />
       </div>
