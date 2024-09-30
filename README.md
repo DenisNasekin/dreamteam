@@ -8,7 +8,7 @@ This project is a web application built with React, Redux, and Next.js. It provi
 - npm (version 6 or higher) or yarn (version 1 or higher)
 
 ## Installation
-1. Clone the repository using git clone https://github.com/your-repo/dream-team.git
+1. Clone the repository using git clone https://github.com/DenisNasekin/dreamteam
 2. Install the dependencies using npm install or yarn install
 3. Start the development server using npm run dev or yarn dev
 4. Open your web browser and navigate to http://localhost:3000
